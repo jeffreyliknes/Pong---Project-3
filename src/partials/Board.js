@@ -6,7 +6,7 @@ export default class Board {
     this.height = height;
   }
 
-  rendor(svg) {
+  render(svg) {
     let rect = document.createElementNS(SVG_NS, "rect");
     rect.setAttributeNS(null, "fill", "#353535");
     rect.setAttributeNS(null, "width", this.width);

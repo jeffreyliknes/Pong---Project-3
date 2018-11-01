@@ -59,9 +59,11 @@ export default class Game {
     svg.setAttributeNS(null, "viewbox", `0 0 ${this.width} ${this.height}`);
     this.gameElement.appendChild(svg);
 
-    this.board.rendor(svg);
+	this.board.render(svg);
+	
     this.player1.render(svg);
-    this.player2.render(svg);
+	this.player2.render(svg);
+	
     this.ball.render(svg);
   }
 }
