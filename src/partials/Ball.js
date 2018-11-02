@@ -2,18 +2,18 @@ import { SVG_NS } from "../settings";
 
 export default class Ball {
   constructor(radius, boardWidth, boardHeight) {
-
     this.radius = radius;
     this.boardWidth = boardWidth;
     this.boardHeight = boardHeight;
     this.direction = 1;
     this.reset();
     this.ping = new Audio("public/sounds/pong-01.wav");
+    this.winner = 2;
   }
 
   reset() {
-    // this.ax = 0.1;
-    // this.ay = 0.1;
+    this.ax = 0.01;
+    this.ay = 0.01;
 
     this.x = this.boardWidth / 2;
     this.y = this.boardHeight / 2;
@@ -23,6 +23,9 @@ export default class Ball {
       this.vy = Math.floor(Math.random() * 10 - 5);
     }
     this.vx = this.direction * (6 - Math.abs(this.vy));
+    if (this.vx <= 0) {
+      this.ax *= -1;
+    }
   }
 
   wallCollision() {
@@ -33,10 +36,10 @@ export default class Ball {
 
     if (hitTop || hitBottom) {
       this.vy *= -1;
-      //   this.ay = -this.vy;
+      this.ay = -this.ay;
     } else if (hitRight || hitLeft) {
       this.vx *= -1;
-      //   this.ax = -this.ax;
+      this.ax = -this.ax;
     }
   }
 
@@ -80,9 +83,9 @@ export default class Ball {
 
   goal(player) {
     player.score++;
+    
+    if (player.score === this.winner) alert("win");
     this.reset();
-
-    console.log(player.score);
   }
 
   render(svg, player1, player2) {
@@ -99,8 +102,8 @@ export default class Ball {
     this.x += this.vx;
     this.y += this.vy;
 
-    // this.vx += this.ax;
-    // this.vy += this.ay;
+    this.vx += this.ax;
+    this.vy += this.ay;
 
     this.wallCollision();
     this.paddleCollision(player1, player2);
@@ -113,5 +116,6 @@ export default class Ball {
     ball.setAttributeNS(null, "cy", this.y); //y of center point
 
     svg.appendChild(ball);
+    // svg.appendChild(winner);
   }
 }

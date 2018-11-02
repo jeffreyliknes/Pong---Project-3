@@ -26,8 +26,8 @@ export default class Game {
       this.boardGap,
       (this.height - this.paddleWidth) / 2,
       KEYS.a,
-	  KEYS.z,
-	  "player1"
+      KEYS.z,
+      "player1"
     );
 
     this.player2 = new Paddle(
@@ -37,8 +37,8 @@ export default class Game {
       this.width - this.boardGap - this.paddleWidth,
       (this.height - this.paddleHeight) / 2,
       KEYS.up,
-	  KEYS.down,
-	  "player2"
+      KEYS.down,
+      "player2"
     );
 
     this.ball = new Ball(
@@ -48,8 +48,8 @@ export default class Game {
       this.direction
     );
 
-    this.score1 = new Score(this.width / 2 - 50, 30, 30);
-    this.score2 = new Score(this.width / 2 + 25, 30, 30);
+    this.score1 = new Score(this.width / 2 - 60, 240, 60);
+    this.score2 = new Score(this.width / 2 + 25, 240, 60);
 
     document.addEventListener("keydown", event => {
       switch (event.key) {
@@ -59,14 +59,11 @@ export default class Game {
       }
     });
 
-    // Other code goes here...
     this.gameElement = document.getElementById(this.element);
     this.board = new Board(this.width, this.height);
   } //end of constructor
 
   render() {
-    // More code goes here...
-
     if (this.pause) {
       return;
     }
@@ -87,5 +84,6 @@ export default class Game {
 
     this.score1.render(svg, this.player1.score);
     this.score2.render(svg, this.player2.score);
+    // this.score.render(svg, this.player2.score);
   }
 }
