@@ -5,19 +5,18 @@ export default class Ball {
     this.radius = radius;
     this.boardWidth = boardWidth;
     this.boardHeight = boardHeight;
-    this.direction = 0.5;
+    this.direction = 1;
 
-    this.ping = new Audio("public/sounds/pong-01.wav");
+    this.ping = new Audio("public/sounds/pong-03.wav");
     this.scored = new Audio(
       "public/sounds/209578__zott820__cash-register-purchase.wav"
     );
-    this.winner = 5;
     this.reset();
   }
 
   reset() {
-    // this.ax = 0.001;
-    // this.ay = 0.001;
+    this.ax = 0.009;
+    this.ay = 0.009;
 
     this.x = this.boardWidth / 2;
     this.y = this.boardHeight / 2;
@@ -26,7 +25,7 @@ export default class Ball {
     while (this.vy === 0) {
       this.vy = Math.floor(Math.random() * 10 - 5);
     }
-    this.vx = this.direction * (6 - Math.abs(this.vy));
+    this.vx = this.direction * (8 - Math.abs(this.vy));
     if (this.vx <= 0) {
       this.ax *= -1;
     }
@@ -40,10 +39,10 @@ export default class Ball {
 
     if (hitTop || hitBottom) {
       this.vy *= -1;
-      // this.ay = -this.ay;
+      this.ay = -this.ay;
     } else if (hitRight || hitLeft) {
       this.vx *= -1;
-      // this.ax = -this.ax;
+      this.ax = -this.ax;
     }
   }
 
@@ -101,12 +100,12 @@ export default class Ball {
       this.goal(player2);
       this.direction = -1;
     }
-
+    
     this.x += this.vx;
     this.y += this.vy;
 
-    // this.vx += this.ax;
-    // this.vy += this.ay;
+    this.vx += this.ax;
+    this.vy += this.ay;
 
     this.wallCollision();
     this.paddleCollision(player1, player2);

@@ -48,8 +48,10 @@ export default class Game {
       this.boardHeight,
       this.direction
     );
-        // Winning game message position
-    this.winner = new Winner(this.width / 3 - 170, this.height / 4, 50);
+
+
+    // Winning game message position
+    this.winner = new Winner(this.width - 390, this.height / 4, 50);
 
     this.score1 = new Score(this.width / 2 - 60, 240, 60);
     this.score2 = new Score(this.width / 2 + 25, 240, 60);
@@ -71,10 +73,10 @@ export default class Game {
     //winning score = 5
     if (player1.score >= 5) {
       this.pause = !this.pause;
-      this.winner.render(svg, "Player Left Wins");
+      this.winner.render(svg, "Left Wins");
     } else if (player2.score >= 5) {
       this.pause = !this.pause;
-      this.winner.render(svg, " Player Right Wins");
+      this.winner.render(svg, "Right Wins");
     }
   }
 
@@ -82,6 +84,8 @@ export default class Game {
     if (this.pause) {
       return;
     }
+
+    
 
     this.gameElement.innerHTML = "";
     let svg = document.createElementNS(SVG_NS, "svg");
@@ -94,12 +98,12 @@ export default class Game {
 
     this.player1.render(svg);
     this.player2.render(svg);
-
-    this.ball.render(svg, this.player1, this.player2);
+    // rendered ball
     this.ball.render(svg, this.player1, this.player2);
 
     this.score1.render(svg, this.player1.score);
     this.score2.render(svg, this.player2.score);
+    //rendered winning message
     this.winnerMessage(this.player1, this.player2, svg);
   }
 }

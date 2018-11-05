@@ -49,6 +49,8 @@ export default class Paddle {
   
 
   render(svg) {
+  
+
 
     if(this.keyState[this.keyUp] && this.player === "player1"){
       this.up();
