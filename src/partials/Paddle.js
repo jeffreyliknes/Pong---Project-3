@@ -45,6 +45,7 @@ export default class Paddle {
     let bottomY = y + height;
     return [leftX, rightX, topY, bottomY];
   }
+
   
 
   render(svg) {
@@ -62,7 +63,7 @@ export default class Paddle {
       this.down();
     }
     let rect = document.createElementNS(SVG_NS, "rect");
-    rect.setAttributeNS(null, "fill", "white");
+    rect.setAttributeNS(null, "fill", "#1D2800");
     rect.setAttributeNS(null, "width", this.width);
     rect.setAttributeNS(null, "height", this.height);
     rect.setAttributeNS(null, "x", this.x);

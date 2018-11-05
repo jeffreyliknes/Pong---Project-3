@@ -26,11 +26,6 @@ A basic pong game using SVGs.
 * ▲ : up
 * ▼: down
 
-// player.height - 10;
 
-    // score(player1, player2) {
-    //   let winner = 1
-    //       if(p) {
 
-    //       }
-    //     }
+    

@@ -2,6 +2,7 @@ import Board from "./Board";
 import Paddle from "./Paddle";
 import Ball from "./Ball";
 import Score from "./Score";
+import Winner from "./Winner";
 import { SVG_NS, KEYS } from "../settings";
 
 export default class Game {
@@ -47,6 +48,8 @@ export default class Game {
       this.boardHeight,
       this.direction
     );
+        // Winning game message position
+    this.winner = new Winner(this.width / 3 - 170, this.height / 4, 50);
 
     this.score1 = new Score(this.width / 2 - 60, 240, 60);
     this.score2 = new Score(this.width / 2 + 25, 240, 60);
@@ -62,6 +65,18 @@ export default class Game {
     this.gameElement = document.getElementById(this.element);
     this.board = new Board(this.width, this.height);
   } //end of constructor
+
+  //set up for winner message and automatic pause when game is won
+  winnerMessage(player1, player2, svg) {
+    //winning score = 5
+    if (player1.score >= 5) {
+      this.pause = !this.pause;
+      this.winner.render(svg, "Player Left Wins");
+    } else if (player2.score >= 5) {
+      this.pause = !this.pause;
+      this.winner.render(svg, " Player Right Wins");
+    }
+  }
 
   render() {
     if (this.pause) {
@@ -81,9 +96,10 @@ export default class Game {
     this.player2.render(svg);
 
     this.ball.render(svg, this.player1, this.player2);
+    this.ball.render(svg, this.player1, this.player2);
 
     this.score1.render(svg, this.player1.score);
     this.score2.render(svg, this.player2.score);
-    // this.score.render(svg, this.player2.score);
+    this.winnerMessage(this.player1, this.player2, svg);
   }
 }
